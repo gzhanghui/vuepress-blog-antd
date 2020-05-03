@@ -1,5 +1,9 @@
 <template>
-  <a  v-if="getFirstEnabledFeed"  class="feed" :href="getFirstEnabledFeed | getFeedFilePath" >
+  <a
+    v-if="getFirstEnabledFeed"
+    class="feed"
+    :href="getFirstEnabledFeed | getFeedFilePath"
+  >
     <RssIcon />
   </a>
 </template>

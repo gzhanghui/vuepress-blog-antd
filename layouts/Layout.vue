@@ -1,20 +1,25 @@
 <template>
-  <div>
-    <Home/>
-    <Content/>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-3">
+        <Profile class="profile-wrap bg-wrap" />
+        <div id="hotComment"></div>
+      </div>
+      <div class="col-md-9">
+        <BaseListLayout v-if="$pagination" class="bg-wrap" />
+        <Content v-else />
+      </div>
+    </div>
   </div>
 </template>
-
-
-<script type="text/ecmascript-6">
-import Home from "./Home";
+<script>
+import Profile from '@theme/components/Profile.vue'
 export default {
   components: {
-    Home
+    Profile,
   },
-  mounted(){
-  }
-};
+}
 </script>
 
-<style scoped lang="stylus"></style>
+<style>
+</style>

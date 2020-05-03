@@ -15,9 +15,6 @@ module.exports = themeConfig => {
       {
         text: 'Tags',
         link: '/tag/',
-      },{
-        text: 'Category',
-        link: '/category/',
       },
     ],
     summary: themeConfig.summary === undefined ? true : themeConfig.summary,
@@ -44,11 +41,6 @@ module.exports = themeConfig => {
         id: 'tag',
         keys: ['tags'],
         path: '/tag/',
-      },
-      {
-        id: 'category',
-        keys: ['category'],
-        path: '/category/',
       },
     ],
     globalPagination: {

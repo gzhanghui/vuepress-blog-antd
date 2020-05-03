@@ -1,6 +1,6 @@
 module.exports = {
-  title: 'VuePress Blog Example',
-  description: 'This is a blog example built by VuePress',
+  title: '淡眉峰',
+  description: '淡眉峰',
   theme: require.resolve('../../'),
   themeConfig: {
     /**
@@ -15,19 +15,28 @@ module.exports = {
 
     nav: [
       {
-        text: '首页',
+        text: 'Blog',
         link: '/',
-        icon: 'home'
+      },
+      {
+        text: 'Javascript',
+        link: '/javascript/',
       },
       {
         text: 'Vue',
         link: '/vue/',
-        icon: 'vue'
       },
       {
-        text: '标签',
+        text: 'React',
+        link: '/react/',
+      },
+      {
+        text: 'Webpack',
+        link: '/webapck/',
+      },
+      {
+        text: 'Tags',
         link: '/tag/',
-        icon: 'tag'
       }
     ],
 
@@ -112,43 +121,55 @@ module.exports = {
      * Ref: https://vuepress-theme-blog.ulivz.com/config/#directories
      */
 
-    directories:[
-      {
-        id: 'post',
-        dirname: '_posts',
-        path: '/',
-        itemPermalink: '/:year/:month/:day/:slug',
-      },
-      {
-        id: 'vue', // Unique id for current classifier
-        dirname: '_vue', // Matched directory name
-        path: '/vue/', // Entry page for current classifier
-        title: 'vue', // Entry and pagination page titles for current classifier.
-        // layout: 'IndexWriting', // Layout component name for entry page.
-        frontmatter:{ //Front matter for entry page.
-          tag: 'vue'
-        },
-        // itemLayout: 'Writing', // Layout for matched pages.
-        itemPermalink: '/vue/:year/:month/:day/:slug', // Permalink for matched pages.
-        pagination: { // Pagination behavior
-          lengthPerPage: 2,
-        },
-      }
-    ],
+    // directories:[
+    //   {
+    //     id: 'post',
+    //     dirname: '_posts',
+    //     path: '/',
+    //     itemPermalink: '/:year/:month/:day/:slug',
+    //   },
+    //   {
+    //     id: 'javascript',
+    //     dirname: '_javascript',
+    //     path: '/',
+    //     itemPermalink: '/:year/:month/:day/:slug',
+    //   },
+    //   {
+    //     id: 'vue',
+    //     dirname: '_vue',
+    //     path: '/',
+    //     itemPermalink: '/:year/:month/:day/:slug',
+    //   },
+    //   {
+    //     id: 'react',
+    //     dirname: '_react',
+    //     path: '/',
+    //     itemPermalink: '/:year/:month/:day/:slug',
+    //   },
+    //    {
+    //     id: 'webpack',
+    //     dirname: '_webpack',
+    //     path: '/',
+    //     itemPermalink: '/:year/:month/:day/:slug',
+    //   }
+    // ],
 
     /**
      * Ref: https://vuepress-theme-blog.ulivz.com/config/#frontmatters
      */
 
-    frontmatters: [
-      {
-        id: "tag",
-        keys: ['tag', 'tags'],
-        path: '/tag/',
-        layout: 'Tags',
-        scopeLayout: 'Tags'
-      }
-    ],
+    // frontmatters: [
+    //   {
+    //     id: "tag",
+    //     keys: ['tag', 'tags'],
+    //     path: '/tag/',
+    //   },
+    //   {
+    //     id: "location",
+    //     keys: ['location'],
+    //     path: '/location/',
+    //   },
+    // ],
 
     /**
      * Ref: https://vuepress-theme-blog.ulivz.com/config/#globalpagination

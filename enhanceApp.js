@@ -1,18 +1,11 @@
-import DrawerLayout from 'vue-drawer-layout'
-
-import 'element-ui/lib/theme-chalk/index.css';
-import { Menu, Submenu, MenuItem, MenuItemGroup, Autocomplete, Tabs, TabPane, Drawer } from 'element-ui';
+// import DrawerLayout from 'vue-drawer-layout'
+// console.log(DrawerLayout)
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 export default ({
     Vue,
 }) => {
-    Vue.use(Menu)
-    Vue.use(Submenu)
-    Vue.use(MenuItem)
-    Vue.use(MenuItemGroup)
-    Vue.use(Autocomplete)
-    Vue.use(Tabs)
-    Vue.use(TabPane)
-    Vue.use(DrawerLayout)
-    Vue.use(Drawer)
+    // import('vue-drawer-layout').then(module=>{
+    //     Vue.use(module.default)
+    // })
 }

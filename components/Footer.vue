@@ -8,7 +8,7 @@
           class="contact-item"
         >
           <NavLink :link="item.link">
-            <component :is="item.iconComponent" />
+            <component :is="item.iconComponent"></component>
             {{ item.text }}
           </NavLink>
         </li>
@@ -18,9 +18,7 @@
     <div class="footer-right-wrap">
       <ul v-if="copyright" class="copyright">
         <li v-for="item in copyright" :key="item.text" class="copyright-item">
-          <NavLink :link="item.link">
-            {{ item.text }}
-          </NavLink>
+          <NavLink :link="item.link">{{ item.text }}</NavLink>
         </li>
       </ul>
     </div>
@@ -43,8 +41,8 @@ import {
   PhoneIcon,
   TwitterIcon,
   VideoIcon,
-  YoutubeIcon
-} from "vue-feather-icons";
+  YoutubeIcon,
+} from 'vue-feather-icons'
 
 export default {
   components: {
@@ -62,7 +60,7 @@ export default {
     PhoneIcon,
     TwitterIcon,
     VideoIcon,
-    YoutubeIcon
+    YoutubeIcon,
   },
 
   computed: {
@@ -74,58 +72,58 @@ export default {
         .map(({ type, link }) => {
           return {
             iconComponent: this.getIconComponentName(type),
-            link
-          };
+            link,
+          }
         })
-        .filter(({ iconComponent }) => iconComponent);
+        .filter(({ iconComponent }) => iconComponent)
     },
 
     copyright() {
       return (
         (this.$themeConfig.footer && this.$themeConfig.footer.copyright) || []
-      );
-    }
+      )
+    },
   },
 
   methods: {
     getIconComponentName(contactType) {
       switch (contactType) {
-        case "codepen":
-          return "CodepenIcon";
-        case "codesandbox":
-          return "CodesandboxIcon";
-        case "facebook":
-          return "FacebookIcon";
-        case "github":
-          return "GithubIcon";
-        case "gitlab":
-          return "GitlabIcon";
-        case "instagram":
-          return "InstagramIcon";
-        case "linkedin":
-          return "LinkedinIcon";
-        case "mail":
-          return "MailIcon";
-        case "messenger":
-          return "MessageSquareIcon";
-        case "music":
-          return "MusicIcon";
-        case "phone":
-          return "PhoneIcon";
-        case "twitter":
-          return "TwitterIcon";
-        case "video":
-          return "VideoIcon";
-        case "web":
-          return "GlobeIcon";
-        case "youtube":
-          return "YoutubeIcon";
+        case 'codepen':
+          return 'CodepenIcon'
+        case 'codesandbox':
+          return 'CodesandboxIcon'
+        case 'facebook':
+          return 'FacebookIcon'
+        case 'github':
+          return 'GithubIcon'
+        case 'gitlab':
+          return 'GitlabIcon'
+        case 'instagram':
+          return 'InstagramIcon'
+        case 'linkedin':
+          return 'LinkedinIcon'
+        case 'mail':
+          return 'MailIcon'
+        case 'messenger':
+          return 'MessageSquareIcon'
+        case 'music':
+          return 'MusicIcon'
+        case 'phone':
+          return 'PhoneIcon'
+        case 'twitter':
+          return 'TwitterIcon'
+        case 'video':
+          return 'VideoIcon'
+        case 'web':
+          return 'GlobeIcon'
+        case 'youtube':
+          return 'YoutubeIcon'
         default:
-          return "";
+          return ''
       }
-    }
-  }
-};
+    },
+  },
+}
 </script>
 
 <style lang="stylus" scoped>

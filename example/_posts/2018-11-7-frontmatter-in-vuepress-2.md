@@ -1,6 +1,6 @@
 ---
 title: frontmatter in vuepress 2
-date: 2018-11-7
+date: 2015-02-2
 tags: 
   - frontmatter
   - vuepress

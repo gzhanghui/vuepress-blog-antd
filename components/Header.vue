@@ -29,9 +29,6 @@ import Feed from './Feed'
 
 export default {
   components: { SearchBox, Feed },
-  mounted(){
-    console.log(this.$themeConfig)
-  }
 }
 </script>
 
@@ -39,17 +36,17 @@ export default {
 @import '~@app/style/config'
 
 #header
-  z-index 12
-  position fixed
-  top 0
-  width 100vw
-  height $headerHeight
   box-sizing border-box
-  background-color $headerBgColor
-  padding 20px 32px 20px
-  margin auto
-  box-shadow 0 5px 20px rgba(0, 0, 0, 0.03), 0 6px 6px rgba(0, 0, 0, 0.05)
-  transition all 1s cubic-bezier(0.25, 0.8, 0.25, 1)
+  position fixed
+  z-index 1
+  top 0
+  width 100%
+  height 64px
+  display flex
+  align-items center
+  // background-color $headerBgColor
+  // box-shadow 0 5px 5px rgba(0, 0, 0, 0.03), 0 6px 6px rgba(0, 0, 0, 0.05)
+  // transition all 1s cubic-bezier(0.25, 0.8, 0.25, 1)
 
   ol, ul
     list-style none
@@ -57,17 +54,18 @@ export default {
     padding 0
 
   &:hover
-    box-shadow 0 5px 20px rgba(0, 0, 0, 0.08), 0 6px 6px rgba(0, 0, 0, 0.1)
+    // box-shadow 0 5px 5px rgba(0, 0, 0, 0.08), 0 6px 6px rgba(0, 0, 0, 0.1)
 
 // border-bottom 5px solid lighten(#3eaf7c, 50%)
 .header-wrapper
   display flex
-  line-height 40px
-  height 40px
-
+  flex 1
+  justify-content space-between
+  align-items center
+  padding 0 20px
   .title
     /* flex 0 0 200px */
-    font-size 30px
+    font-size 24px
     margin 0
     letter-spacing 2px
     display block
@@ -75,8 +73,6 @@ export default {
 
     a
       color $darkTextColor
-      font-weight bold
-      font-family PT Serif, Serif
       text-decoration none
 
   .header-right-wrap
@@ -94,14 +90,12 @@ export default {
         margin-left 20px
 
         a
-          font-family PT Serif, Serif
-          font-size 20px
+          // font-size 20px
           // color lighten(#3eaf7c, 30%)
           text-decoration none
           transition color 0.3s
 
     .search-box
-      font-family PT Serif, Serif
       margin-left 20px
 
       input
@@ -134,4 +128,6 @@ export default {
 
     .header-right-wrap
       display none
+.nav>li>a:focus, .nav>li>a:hover
+  background-color none 
 </style>

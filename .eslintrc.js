@@ -1,18 +1,36 @@
 module.exports = {
-    root: true,
-    env: {
-        node: true
-    },
-    'extends': [
-        'plugin:vue/essential'
+  root: true,
+
+  env: {
+    "node": true,
+    "jest": true
+  },
+
+  extends: [
+    'plugin:vue/recommended',
+    'plugin:prettier/recommended',
+    "prettier/vue",
+  ],
+
+  parserOptions: {
+    parser: 'babel-eslint' // Support dynamic import
+  },
+
+  rules: {
+    'no-undef': ['error'],
+
+    'vue/match-component-file-name': [
+      'error',
+      {
+        extensions: ['js', 'vue'],
+        shouldMatchCase: false
+      }
     ],
-    rules: {
-        'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-        'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-        'space-before-function-paren': 0,
-        'indent': 0
-    },
-    parserOptions: {
-        parser: 'babel-eslint'
-    }
+
+    'vue/prop-name-casing': 0,
+
+    'vue/require-default-prop': 0
+  },
+
+
 }

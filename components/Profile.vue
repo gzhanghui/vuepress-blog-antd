@@ -12,9 +12,9 @@
             <div>海纳百川，有容乃大</div>
           </div>
           <div class="profile-desc">
-            <p><i class="el-icon-milk-tea" />啥也不是</p>
-            <p><i class="el-icon-coffee-cup" />蚂蚁金服某某技术部－UED</p>
-            <p><i class="el-icon-location-information" />浙江省杭州市</p>
+            <p><i class="iconfont icon-milk-tea" />啥也不是</p>
+            <p><i class="iconfont icon-coffee-cup" />蚂蚁金服某某技术部－UED</p>
+            <p><i class="iconfont icon-location-information" />浙江省杭州市</p>
           </div>
           <div
             class="ant-divider ant-divider-horizontal ant-divider-dashed"
@@ -37,18 +37,20 @@
             <div class="article-tag-list">
               <router-link
                 class="article-tag-item"
+                :class="tag.name"
                 v-for="tag in $tag.list"
                 :key="tag.path"
                 :to="tag.path"
               >
-              <iconfont :size = '32' :icon='tag.name'/> <em>{{ tag.name }}</em>
+               <em>{{ tag.name }}</em>
+              <!-- <iconfont :size = '32' :icon='tag.name'/> <em>{{ tag.name }}</em> -->
               </router-link>
             
             </div>
           </div>
           </slot> 
           <slot name="hot-comment">
-          <div v-if="hotComment" class="hot-comment">
+          <div v-if="hotComment.name" class="hot-comment">
             <div>网易云热评</div>
             <p :title="`${hotComment.name}--${hotComment.artistsname}`">{{hotComment.content}}</p>
           </div>
@@ -60,12 +62,17 @@
 </template>
 
 <script type="text/ecmascript-6">
+import { EventBus } from '@theme/components/event-bus'
 export default {
-  components: {},
-  data() {
+  data(){
     return {
-      hotComment: JSON.parse(localStorage.getItem('hotComment'))
-    };
+      hotComment:{}
+    }
+  },
+  mounted(){
+    EventBus.$on('load-hot-comment',(hotComment)=>{
+        this.hotComment = hotComment
+    })
   }
 };
 </script>
@@ -151,18 +158,21 @@ export default {
 .article-tag-item {
   margin-bottom: 15px;
   margin-right: 15px;
-  display: inline-flex;
+  display: inline-block;
   align-items: center;
-  line-height: 32px;
-
+  background: $accentColor;
+  color #ffffff;
+  text-decoration: none;
+  border-radius: 2px;
+  padding 4px 8px;
   .icon {
     font-size: 32px;
   }
 
   em {
     font-style: normal;
-    margin-left: 4px;
   }
+  
 }
 .hot-comment{
   margin:12px 0

@@ -1,71 +1,68 @@
 <template>
   <div id="base-list-layout">
-        <div class="ui-posts" itemscope itemtype="http://schema.org/Blog">
-          <article
-            v-for="page in pages"
-            :key="page.key"
-            class="ui-post post-list-item card-border"
-            itemprop="blogPost"
-            itemscope
-            itemtype="https://schema.org/BlogPosting"
+    <div class="ui-posts" itemscope itemtype="http://schema.org/Blog">
+      <article
+        v-for="page in pages"
+        :key="page.key"
+        class="ui-post"
+        itemprop="blogPost"
+        itemscope
+        itemtype="https://schema.org/BlogPosting"
+      >
+        <meta itemprop="mainEntityOfPage" :content="page.path" />
+        <header class="ui-post-title" itemprop="name headline">
+          <NavLink :link="page.path">{{ page.title }}</NavLink>
+        </header>
+        <div
+            v-if="page.frontmatter.tags"
+            class="ui-post-meta ui-post-tag"
+            itemprop="keywords"
           >
-            <meta itemprop="mainEntityOfPage" :content="page.path" />
+            <router-link
+              :class="tag"
+              v-for="tag in resolvePostTags(page.frontmatter.tags)"
+              :key="tag"
+              :to="'/tag/' + tag"
+            >{{ tag }}</router-link>
+          </div>
+        <p class="ui-post-summary" itemprop="description">
+          {{ page.frontmatter.summary || page.summary }}
+          <!-- <Content :page-key="page.key" slot-key="intro"/>-->
+        </p>
 
-            <NavLink
-              class="list-item-title "
-              :link="page.path"
-              itemprop="name headline"
-            >{{ page.title }}</NavLink>
-            <div v-if="page.frontmatter.tags" itemprop="keywords">
-              <router-link
-                class="list-item-tag"
-                v-for="tag in resolvePostTags(page.frontmatter.tags)"
-                :key="tag"
-                :to="'/tag/' + tag"
-              >{{ tag }}</router-link>
-            </div>
+        <footer>
+          <div
+            v-if="page.frontmatter.author"
+            class="ui-post-meta ui-post-author"
+            itemprop="publisher author"
+            itemtype="http://schema.org/Person"
+            itemscope
+          >
+            <i class="glyphicon glyphicon-send"></i>
+            <span itemprop="name">{{ page.frontmatter.author }}</span>
+            <span v-if="page.frontmatter.location" itemprop="address">
+              &nbsp; in {{ page.frontmatter.location }}
+            </span>
+          </div>
 
-            <p
-              class="list-item-summary"
-              itemprop="description"
-            >{{ page.frontmatter.summary || page.summary }}</p>
-            <div
-              class="meta"
-              v-if="page.frontmatter.author"
-              itemprop="publisher author"
-              itemscope
-              itemtype="http://schema.org/Person"
+          <div v-if="page.frontmatter.date" class="ui-post-meta ui-post-date">
+            <i class="iconfont icon-time"></i>
+            <time
+              pubdate
+              itemprop="datePublished"
+              :datetime="page.frontmatter.date"
             >
-              <span class="avatar"></span>
-              <a itemprop="name" href="https://ant.design">{{ page.frontmatter.author }}</a>
-              <span
-                class="location"
-                v-if="page.frontmatter.location"
-                itemprop="address"
-              >在{{ page.frontmatter.location }}</span>
-              <time
-                pubdate
-                itemprop="datePublished"
-                :datetime="page.frontmatter.date"
-              >发布于{{ resolvePostDate(page.frontmatter.date) }}</time>
-            </div>
-            <ul class="list-item-action">
-              <li>
-                <i class="el-icon-star-off"></i>
-                <span>190</span>
-              </li>
-              <li>
-                <i class="el-icon-view"></i>
-                <span>190</span>
-              </li>
-              <li>
-                <i class="el-icon-chat-dot-square"></i>
-                <span>190</span>
-              </li>
-            </ul>
-          </article>
-        </div>
-    <component :is="paginationComponent" v-if="pages.length > 1 && paginationComponent"></component>
+              {{ resolvePostDate(page.frontmatter.date) }}
+            </time>
+          </div>
+        </footer>
+      </article>
+    </div>
+
+    <component
+      :is="paginationComponent"
+      v-if="$pagination.length > 1 && paginationComponent"
+    ></component>
   </div>
 </template>
 
@@ -88,14 +85,13 @@ export default {
       paginationComponent: null,
     }
   },
- props: {
-      pages: {
-        type: Array,
-        default:()=>{
-          return []
-        }
-      },
- },
+
+  computed: {
+    pages() {
+      return this.$pagination.pages
+    },
+  },
+
   created() {
     this.paginationComponent = this.getPaginationComponent()
   },
@@ -128,79 +124,82 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus">
+.common-layout
+  .content-wrapper
+    padding-bottom 80px
 
-.post-list-item {
-  padding-top: 16px;
-  padding-bottom: 16px;
+.ui-post
+  padding-bottom 25px
+  margin-bottom 25px
+  border-bottom 1px solid $borderColor
 
-  .list-item-title {
-    margin-bottom: 12px;
-    font-size: 16px;
-    line-height: 24px;
-    display: block;
-  }
+  &:last-child
+    border-bottom 0px
+    margin-bottom 0px
 
-  .list-item-tag {
-    box-sizing: border-box;
-    color: rgba(0, 0, 0, 0.65);
-    font-size: 14px;
-    line-height: 1.5715;
-    list-style: none;
+.ui-post-title
+  font-size 28px
+  border-bottom 0
+
+  a
+    cursor pointer
+    color $darkTextColor
+    transition all 0.2s
+    text-decoration none
+
+    &:hover
+      text-decoration underline
+
+.ui-post-summary
+  font-size 14px
+  font-weight 200
+
+.ui-post-meta
+  display inline-flex
+  align-items center
+  font-size 12px
+  line-height 12px
+
+  &:not(:last-child)
+    margin-bottom 3px
+    margin-right 20px
+
+  svg
+    margin-right 5px
+    width 14px
+    height 14px
+
+  @media (max-width: $MQMobile)
+    display flex
+
+    &:not(:last-child)
+      margin-bottom 10px
+
+.ui-post-author
+  color rgba($darkTextColor, 0.84)
+  font-weight 400
+
+.ui-post-date
+  color rgba($darkTextColor, 0.54)
+  font-weight 200
+
+.ui-post-tag
+  color rgba($darkTextColor, 0.54);
+  margin-bottom 16px !important;
+  margin-top 12px;
+  a
+    font-weight 200
+    text-decoration none
+    background: $accentColor;
+    border-radius:2px;
+    color #fff;
     display: inline-block;
     height: auto;
     margin: 0 8px 0 0;
     padding: 0 7px;
     font-size: 12px;
     line-height: 20px;
-    white-space: nowrap;
-    background: #fafafa;
-    border: 1px solid #d9d9d9;
-    border-radius: 2px;
-    cursor: default;
-    opacity: 1;
-    transition: all 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86);
-  }
-
-  .list-item-summary {
-    margin: 16px 0;
-  }
-
-  .meta {
-    margin-bottom: 12px;
-
-    .avatar {
-      position: relative;
-      top: 1px;
-      width: 20px;
-      height: 20px;
-      margin-right: 8px;
-      vertical-align: top;
-      line-height: 24px;
-      border-radius: 50%;
-      display: inline-block;
-      background: url('https://gw.alipayobjects.com/zos/rmsportal/zOsKZmFRdUtvpqCImOVY.png'); // gw.alipayobjects.com/zos/rmsportal/zOsKZmFRdUtvpqCImOVY.png)
-      background-size: cover;
-    }
-
-    .location, time {
-      margin-left: 16px;
-    }
-  }
-
-  .list-item-action {
-    margin: 0;
-    padding: 0;
-
-    li {
-      position: relative;
-      display: inline-block;
-      padding: 0 8px;
-      font-size: 14px;
-      line-height: 22px;
-      text-align: center;
-      cursor: pointer;
-    }
-  }
-}
+    &:hover
+      color #fff
 </style>

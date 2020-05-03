@@ -1,14 +1,15 @@
 <template>
   <div class="player">
       <div class="avatar-wrapper" v-if="music.src">
-        <aplayer :float="true" :mini="true" :music="music"></aplayer>
+        <aplayer :float="true" :mini="true" :music="music"/>
       </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-import axios from "axios";
-import Aplayer from "vue-aplayer";
+import axios from "axios"
+import Aplayer from "vue-aplayer"
+import { EventBus } from '@theme/components/event-bus'
 export default {
   data() {
     return {
@@ -38,6 +39,7 @@ export default {
         .then(res => {
           if (res.data.code === 1) {
             this.hotComment = res.data.data;
+            EventBus.$emit('load-hot-comment',res.data.data)
             localStorage.setItem('hotComment',JSON.stringify(res.data.data))
           }
         });
